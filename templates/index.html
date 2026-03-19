@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Hunter - The Construct</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: flex; gap: 10px;">
+        <button id="mode-toggle-btn" class="btn crt-btn" style="padding: 5px 15px; font-size: 0.9rem;">
+            SYSTEM: ONLINE
+        </button>
+        <button id="logout-btn" class="btn crt-btn" style="padding: 5px 15px; font-size: 0.9rem; display: none;"
+            onclick="resetSystem()">
+            LOGOUT (RESET)
+        </button>
+    </div>
+
+    <canvas id="matrix-canvas"></canvas>
+
+
+
+    <div class="crt-container">
+        <div class="crt-monitor">
+            <div class="crt-screen">
+                <div class="crt-content">
+                    <div class="d-flex justify-content-center align-items-center gap-4 mb-4" style="height: 60px;">
+                        <div class="cpu-loader"><div class="pins-hz"></div></div>
+                        <div id="header-title-container" class="text-center" style="min-width: 250px;">
+                            <h2 id="main-title" style="font-weight: bold; letter-spacing: 2px; margin: 0; color: #339900;">THE CONSTRUCT</h2>
+                            <h2 id="loading-title" style="font-weight: bold; letter-spacing: 2px; margin: 0; color: #ffaa00; display: none;">Targeting Bug...</h2>
+                        </div>
+                        <div class="cpu-loader"><div class="pins-hz"></div></div>
+                    </div>
+
+                    <div id="login-screen" style="text-align: center; margin-top: 40px;">
+                        <p style="font-size: 1.2rem; margin-bottom: 20px;">> IDENTIFY YOURSELF, HUNTER.</p>
+                        <input type="text" id="hunter-name-input" class="crt-input" placeholder="Enter Name..."
+                            autocomplete="off">
+                        <br><br>
+                        <button class="btn crt-btn" onclick="startSystem()">ENTER</button>
+                    </div>
+
+                    <div id="game-screen" style="display: none;">
+                        <div id="stats-area">
+                            HUNTER: <span id="display-name">Guest</span> |
+                            LV: <span id="display-level" style="font-size: 1.1rem; color: #fff;">1</span> |
+                            PLAYED: <span id="display-played">0</span> |
+                            CORRECT: <span id="display-correct">0</span> (<span id="display-accuracy">0</span>%)
+                        </div>
+
+
+
+                        <label for="code-editor" class="mb-2" style="font-weight: bold;">> ENTER_CODE:</label>
+                        <textarea id="code-editor" class="code-editor" spellcheck="false"></textarea>
+
+                        <!-- ★ 変更点：justify-content-between で左右に配置を分離しました -->
+                        <div class="d-flex justify-content-between gap-3 mt-2">
+                            <!-- EXECUTEボタンを左側に -->
+                            <button id="btn-execute" class="btn crt-btn" onclick="checkSolution()">EXECUTE</button>
+                            <!-- NEXT_BUGボタンを右側に -->
+                            <button id="btn-next" class="btn crt-btn" onclick="loadProblem()">NEXT_BUG</button>
+                        </div>
+
+                        <div id="result-area"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
